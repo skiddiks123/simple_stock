@@ -1,0 +1,5 @@
+# ingore files
+*.pyc
+*.pyo
+
+env
