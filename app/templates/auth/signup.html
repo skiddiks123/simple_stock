@@ -1,0 +1,19 @@
+
+<h2>Sign up</h2>
+
+<form method="POST" action="." accept-charset="UTF-8" role="form">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+
+    {{ form.nickname.label }}
+    {{ form.nickname }}
+
+    {{ form.email.label }}
+    {{ form.email }}
+
+    {{ form.password.label }}
+    {{ form.password }}
+
+
+    {{ form.submit }}
+</form>

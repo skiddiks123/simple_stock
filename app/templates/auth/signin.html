@@ -13,7 +13,7 @@
 
 <div>
   <div>
-    <legend>Sign in</legend>
+    <legend>Войти</legend>
     {% with errors = get_flashed_messages(category_filter=["error"]) %}
     {% if errors %}
     <div>
@@ -40,7 +40,7 @@
       {{ render_field(form.password, placeholder="Password") }}
       <div>
       <label>
-        <input type="checkbox" name="remember" value="1"> Remember Me
+        <input type="checkbox" name="remember" value="1"> Запомнить меня
       </label>
       <a role="button" href="">Forgot your password?</a><span class="clearfix"></span>
       </div>
