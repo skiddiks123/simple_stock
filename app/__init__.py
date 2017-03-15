@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_admin import Admin
 
 app = Flask(__name__)
 
@@ -21,12 +22,11 @@ def not_found(error):
 
 from app.home.controllers import home as home_module
 from app.auth.controllers import auth as auth_module
-
+from app.admin.controllers import admin as admin_module
 
 app.register_blueprint(home_module)
 app.register_blueprint(auth_module)
-
-
+app.register_blueprint(admin_module)
 
 # Импорт моделей 
 from app.models.user import User
