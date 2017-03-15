@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm as Form
-from wtforms import TextField, PasswordField, validators, SubmitField, IntegerField
+from wtforms import TextField, PasswordField, validators, SubmitField, IntegerField, BooleanField
 from wtforms.validators import Required, Email, EqualTo
 from app.models.user import User
 
@@ -9,11 +9,10 @@ class LoginForm(Form):
                                         Required(message='Forgot your email address?')])
     password = PasswordField('Password', [
         Required(message='Must provide a password. ;-)')])
-
+    remember_me = BooleanField('Keep me logged in')
 
 class SignupForm(Form):
-    nickname = TextField(
-        "nickname",  [validators.Required("Please enter your first name.")])
+    nickname = TextField("nickname",  [validators.Required("Please enter your first name.")])
     email = TextField("email",  [validators.Required(
         "Please enter your email address."), validators.Email("Please enter your email address.")])
     password = PasswordField(

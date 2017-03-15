@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Bootstrap Snippet: Login Form</title>
+{% extends "home_layout.html" %}
 
-
-  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
-
-      <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-
-
-</head>
-
-<body>
-добро пожаловать susususu
-
-
-</body>
-</html>
+{% block content %}
+    <h1>Добро пожаловать {{user}}! </h1>
+    <p> {{current_user.email}}</p>
+    <a href="{{url_for('auth.logout')}}" class="btn btn-info" role="button">Выйти</a>
+    <br>
+    <a href="{{url_for('auth.signup')}}" class="btn btn-danger" role="button">Зарегать поциента</a>
+{% endblock %}
