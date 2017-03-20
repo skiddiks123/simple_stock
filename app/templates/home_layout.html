@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="/static/scripts/jquery-1.12.4.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+
 </head>
 
 <body>
@@ -26,10 +31,16 @@
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a><i class="fa fa-user"></i> Привет, {{ current_user.nickname }}!</a></li>
+                    {% if current_user.is_admin %}
+                    <li><a href="{{ url_for('admin.list_users') }}">Пользователи</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('auth.logout') }}">Выйти</a></li>
+                </ul>
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         {% block content %}{% endblock %}
         <hr />
@@ -37,11 +48,47 @@
             <p>My Flask Application</p>
         </footer>
     </div>
+<script type="text/javascript"> 
+ $(document.body).on('click', '.button_delete', function() {
+        var modal = $("#modal_delete");
+        var username = $(this).prop('id');
+        var info = "Are you sure you want to delete " + username + "?"; 
+        modal.find('.modal-body p').text(info);
+        modal.find('#button_delete_confirm').click(function() {
+            var postdata = {'action': 'delete_user', 'data': username}
+            applyChanges(postdata, $SCRIPT_ROOT + '/admin/manageuser', false, true);
+            modal.modal('hide');
+        })
+        modal.modal('show');
+    });
+</script>
 
-    <script src="/static/scripts/jquery-1.10.2.js"></script>
-    <script src="/static/scripts/bootstrap.js"></script>
-    <script src="/static/scripts/respond.js"></script>
-    {% block scripts %}{% endblock %}
+<div class="modal fade modal-warning" id="modal_delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-flat btn-default pull-left"
+                    data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-flat btn-danger" id="button_delete_confirm">Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
+
+   
 </body>
+
 </html>

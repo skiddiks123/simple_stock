@@ -13,6 +13,9 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.singin'
 login_manager.init_app(app)
 
+
+
+
 # Добавления файла конфигурации 
 app.config.from_object('config')
 

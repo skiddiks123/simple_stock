@@ -1,0 +1,50 @@
+{% extends "home_layout.html" %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+<div class="content-section">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <h1 style="text-align:center;">Пользователи</h1>
+                <hr class="intro-divider">
+                <div class="center">
+                   
+                    <div class="btn btn-success">+ Add User</div>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="15%"> Имя </th>
+                                <th width="30%"> Почта </th>
+                                <th width="30%"> Пароль </th>
+                                <th width="15%"> Роль </th>
+                                <th width="15%"> Действия </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td> {{ user.nickname }} </td>
+                                <td> {{ user.email }}</td>
+                                <td> {{ user.password }}</td>
+                                <td> {{ user.is_admin }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-flat btn-danger button_delete" id="{{user.nickname}}">
+                                       Delete&nbsp;
+                                    </button>                                    
+                                   
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+ 
