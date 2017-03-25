@@ -1,0 +1,39 @@
+<div class="modal fade modal-warning" id="modal_delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Подтверждение</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-flat btn-default pull-left"
+                    data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-flat btn-danger" id="button_delete_confirm">Удалить</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript"> 
+ $(document.body).on('click', '.button_delete', function() {
+        var modal = $("#modal_delete");
+        var user = $(this).prop('id');
+        var user_array = user.split(',');
+        var info = "Вы действительно хотите удалить пользователя " + user_array[1] + "?"; 
+        modal.find('.modal-body p').text(info);
+        modal.find('#button_delete_confirm').click(function() {    
+            var postdata = {'userid': user_array[0]}
+            applyChanges(postdata, $SCRIPT_ROOT + '/admin/delete_user', false, true);
+            modal.modal('hide');
+        })
+        modal.modal('show');
+    });
+</script>

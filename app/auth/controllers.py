@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, \
                   flash, g, session, redirect, url_for
 from werkzeug import check_password_hash, generate_password_hash
-from app.auth.forms import LoginForm, SignupForm
+from app.auth.forms import LoginForm
 from app.models.user import User
 from app import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -22,22 +22,6 @@ def signin():
         flash('Invalid username or password.')
     return render_template('auth/signin.html', form=form)
     
-
-@auth.route('/signup/', methods=['GET', 'POST'])
-@decorators.login_required
-def signup():
-    form = SignupForm()
-    if request.method == 'POST':
-        if form.validate() == False:
-            return render_template("auth/signup.html", form=form)
-        else:
-            newuser = User(form.nickname.data, form.email.data, form.password.data)
-            db.session.add(newuser)
-            db.session.commit()
-        session['email'] = newuser.email
-        return redirect(url_for('home.index'))
-    elif request.method == 'GET':
-        return render_template("auth/signup.html", form=form)
 
 @auth.route('/logout/')
 @login_required
