@@ -13,7 +13,6 @@ def list_users():
     return render_template('admin/users.html',
                            users=users, title='Пользователи')
 
-
 @admin.route('/signup/', methods=['GET', 'POST'])
 @login_required
 def signup():
