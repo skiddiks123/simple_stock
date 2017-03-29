@@ -1,6 +1,6 @@
 from flask import abort, flash, redirect, render_template, url_for, jsonify, request, make_response
 from flask_login import current_user, login_required
-from app.models.user import User
+from ..models import User
 from flask import Blueprint
 from app import db
 admin = Blueprint('admin', __name__,  template_folder='templates', url_prefix='/admin')
@@ -41,20 +41,16 @@ def delete_user():
                 db.session.commit()
             return make_response(jsonify( { 'status': 'ok', 'msg': 'User has been removed.' } ), 200)
         except:
-            print ('error')
             return make_response(jsonify( { 'status': 'error', 'msg': 'There is something wrong, please contact Administrator.' } ), 400)
 
 @admin.route('/check_email', methods=['POST'])
 @login_required
 def check_email():
     if request.method == 'POST':
-        try:
-            print(request.json['email'])
-            user = User.query.filter(User.id==user_id).first()
-            if user:
-                db.session.delete(user)
-                db.session.commit()
-            return make_response(jsonify( { 'status': 'ok', 'msg': 'User has been removed.' } ), 200)
-        except:
-            print ('error')
-            return make_response(jsonify( { 'status': 'error', 'msg': 'There is something wrong, please contact Administrator.' } ), 400)
+        email_req = request.json['email']
+        email = User.query.filter(User.email == email_req).first()
+        print(email)
+        if email:
+            return make_response(jsonify( { 'status': 'ok', 'msg': '<p class="text-danger">Такой email существует в базе</p>' } ), 200)
+        else:
+            return make_response(jsonify( { 'status': 'ok', 'msg': 'User has been removed.' } ), 200) 

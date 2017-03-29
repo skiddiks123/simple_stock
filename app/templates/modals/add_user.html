@@ -23,7 +23,7 @@
                             <label for="">Email</label>
                             <input type="text" style="display:none;">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-error="Email написан не правильно" required>
-                            <div class="help-block with-errors"></div>
+                            <div class="help-block with-errors check_email"></div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">Пароль</label>
@@ -50,24 +50,20 @@
         var modal = $("#modal_add");
         modal.modal('show');
     });
-    
     $("#email").focusout(function () {
-        if ($("#email").val() != "") {
+        if ($("#email").val() != "" && $('.check_email').text().length == 0 ) {
             $.ajax({
-            type: "POST",
-            url: "/admin/check_email",
-            data: JSON.stringify({"email": $("#email").val()}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (msg) {
-               //do something
-            },
-            error: function (errormessage) {
-
-                //do something else
-            }
+                    type: "POST",
+                    url: "/admin/check_email",
+                    data: JSON.stringify({"email": $("#email").val()}),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $('.check_email').html(msg['msg']);
+                        $('.check_email').parent().addClass("has-error has-danger");
+                    },     
             });
-        }
+            }
             }); 
 
 

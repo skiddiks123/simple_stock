@@ -31,7 +31,7 @@ app.register_blueprint(auth_module)
 app.register_blueprint(admin_module)
 
 # Импорт моделей 
-from app.models.user import User
+from .models import User
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
